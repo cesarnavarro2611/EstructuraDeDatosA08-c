@@ -7,7 +7,7 @@
 //Cesar
 
 //Declaracion de las funciones
-  //Funciones principales del programa #Trabajando Principal Cesar
+  //Funciones principales del programa #Terminado
   int menuPrinc();
   void limparPantalla();
   void pausarPantalla();
