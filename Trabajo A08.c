@@ -20,3 +20,6 @@ int main(){
   void pausarPantalla(){
     
   }
+  
+//Este es mi comentario escrito desde el editor de la tablet
+//Si pueden verlo entonces ya puedo programar comodamente desde un editor instalado en la tablet
