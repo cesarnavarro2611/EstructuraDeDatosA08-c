@@ -7,11 +7,56 @@
 //Cesar
 
 //Declaracion de las funciones
-  //Funciones principales del programa
+  //Funciones principales del programa #Trabajando Principal Cesar
   int menuPrinc();
   void limparPantalla();
   void pausarPantalla();
-
+  
+  //Funciones del Arbol
+  
+  
+  //Funciones del Nodo
+  
+  
+  //Funciones de la opcion 1
+  
+  
+  //Funciones de la opcion 2
+  
+  
+  //Funciones de la opcion 3
+  
+  
+  //Funciones de la opcion 4
+  
+  
+  //Funciones de la opcion 5
+  
+  
+  //Funciones de la opcion 6
+  
+  
+  //Funciones de la opcion 7
+  
+  
+  //Funciones de la opcion 8
+  
+  
+  //Funciones de la opcion 9
+  
+  
+  //Funciones de la opcion 10
+  
+  
+  //Funciones de la opcion 11
+  
+  
+  //Funciones de la opcion 12
+  
+  
+  //Funciones de la opcion 13
+  
+  
 int main(){
   int opcMenuPrincSel = 0;
   do{
@@ -48,13 +93,19 @@ int main(){
       
         break;
       case 11:
+      
+        break;
+      case 12:
+      
+        break;
+      case 13:
         printf("Va a salir del programa \n Que tenga un buen dia :D");
         break;
       default:
       
         break;
     }
-  }while(opcMenuPrincSel != 11);
+  }while(opcMenuPrincSel != 13);
   return 0;
 }
 
