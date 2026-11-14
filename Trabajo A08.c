@@ -6,13 +6,24 @@
 //Daniel
 //Cesar
 
+//Definicion de Constantes
+#define tamFolio 3
+#define gradoArbol 2
+
+//Estructuras
+  typedef struct Nodo{
+    int dato;
+    char dato[tamFolio];
+    struct Nodo *hijos[gradoArbol];
+  }
+
 //Declaracion de las funciones
   //Funciones principales del programa #Terminado
   int menuPrinc();
   void limparPantalla();
   void pausarPantalla();
   
-  //Funciones del Arbol
+  //Funciones del Arbol # Trabajando Cesar Principal
   
   
   //Funciones del Nodo
