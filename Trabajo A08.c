@@ -4,7 +4,7 @@
 //Tiempo de programacion por colaborador
 //Richie
 //Daniel
-//Cesar
+//Cesar 6 horas
 
 //Definicion de Constantes
 #define tamFolio 3
@@ -22,6 +22,7 @@
   int menuPrinc();
   void limparPantalla();
   void pausarPantalla();
+  int solicDatoInt();
   
   //Funciones del Arbol
   void insertar(Nodo *nodo, int dato);
@@ -35,7 +36,8 @@
   Nodo *nuevoNodo(int dato);
   
   //Funciones de la opcion 1
-  
+  void insertarNuevoNodo(Nodo *arbol);
+  int verifDatoOpcUno(Nodo *arbol, int dato);
   
   //Funciones de la opcion 2
   
@@ -75,6 +77,7 @@
   
 int main(){
   int opcMenuPrincSel = 0;
+  Nodo *arbol = NULL;
   do{
     opcMenuPrincSel = menuPrinc();
     switch (opcMenuPrincSel){
@@ -149,6 +152,11 @@ int main(){
     printf("\n\nPresione [ENTER] para continuar ");
     int c;
     while( (c = getchar()) != '\n' && c != EOF);
+  }
+  int solicDatoInt(){
+    int n;
+    printf("Ingresa el dato: ");
+    scanf("%d",&n);
   }
   //Funciones del Arbol
   void insertar(Nodo *nodo, int dato){
@@ -242,7 +250,27 @@ int main(){
   }
   
   //Funciones de la opcion 1
-  
+  void insertarNuevoNodo(Nodo *arbol){
+    int dato;
+    do{
+      dato = solicDatoInt();
+      if(busqValNodo(arbol, dato) != NULL)
+        printf("\nEl Folio ya se encuentra registrado");
+      if(dato < (pow(10, tamFolio) - 1) && dato >= 0)
+        printf("\nEl folio no es valido");
+    }while( verifDatoOpcUno(arbol, dato) );
+    insertar(arbol, dato);
+  }
+  int verifDatoOpcUno(Nodo *arbol, int dato){
+    return (dato < (pow(10, tamFolio) - 1) && dato >= 0 && busqValNodo(arbol, dato) != NULL);
+  }
+  void insertMultNodos(Nodo *arbol){
+    int numFolios = solicDatoInt();
+    for(int i = 0; i < numFolios; i++){
+      limpiarPantalla();
+      insertarNuevoNodo(arbol);
+    }
+  }
   
   //Funciones de la opcion 2
   
