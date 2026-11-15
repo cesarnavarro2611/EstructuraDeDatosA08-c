@@ -38,9 +38,10 @@
   //Funciones de la opcion 1
   void insertarNuevoNodo(Nodo *arbol);
   int verifDatoOpcUno(Nodo *arbol, int dato);
+  void insertMultNodos(Nodo *arbol);
   
-  //Funciones de la opcion 2
-  
+  //Funciones de la opcion 2 # Trabajando Nano
+  void busqNodo(Nodo *arbol);
   
   //Funciones de la opcion 3
   
@@ -161,6 +162,8 @@ int main(){
   }
   //Funciones del Arbol
   void insertar(Nodo *nodo, int dato){
+    if(nodo == NULL)
+      nodo = nuevoNodo(dato);
     if(dato < nodo->dato){
       if(nodo->hijos[0] == NULL){
         nodo->hijos[0] = nuevoNodo(dato);
@@ -266,17 +269,37 @@ int main(){
     return (dato < (pow(10, tamFolio) - 1) && dato >= 0 && busqValNodo(arbol, dato) != NULL);
   }
   void insertMultNodos(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Ingreso de Multiples Datos ==========\n\n");
     int numFolios = solicDatoInt();
     for(int i = 0; i < numFolios; i++){
       limpiarPantalla();
       printf("========== Ingresar elementos ==========");
       printf("\nElemento #%d", i + 1);
+      if(arbol == NULL){
+        printf("\n\nEl arbol ha sido creado!");
+      }
       insertarNuevoNodo(arbol);
+      pausarPantalla();
     }
   }
   
   //Funciones de la opcion 2
-  
+  void busqNodo(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Buscar un Folio ========== \n\n");
+    printf("1. Ingrese el Folio que desea buscar \n");
+    int numFolio = solicDatoInt();
+    printf("\n2. Resultado \n");
+    if(arbol == NULL)
+      printf("El arbol está vacío");
+    else{
+      if(busqValNodo(arbol, numFolio) == NULL)
+        printf("Folio No Encontrado");
+      else
+        printf("Folio Encontrado");
+    }
+  }
   
   //Funciones de la opcion 3
   
