@@ -40,10 +40,10 @@
   int verifDatoOpcUno(Nodo *arbol, int dato);
   void insertMultNodos(Nodo *arbol);
   
-  //Funciones de la opcion 2 # Trabajando Nano
+  //Funciones de la opcion 2
   void busqNodo(Nodo *arbol);
   
-  //Funciones de la opcion 3
+  //Funciones de la opcion 3 #Trabajando Nano
   
   
   //Funciones de la opcion 4
