@@ -30,6 +30,7 @@
   void inOrder(Nodo *nodo);
   void postOrder(Nodo *nodo);
   Nodo *busqValNodo(Nodo *nodo, int dato);
+  int arbolVacio(Nodo *arbol);
   
   //Funciones del Nodo
   char intToChar(int dato);
@@ -219,6 +220,9 @@ int main(){
       }
     }while(nodoM == NULL);
     return nodoAct;
+  }
+  int arbolVacio(Nodo *arbol){
+    return (arbol == NULL);
   }
   
   //Funciones del Nodo
