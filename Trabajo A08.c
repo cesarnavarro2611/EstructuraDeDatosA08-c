@@ -268,6 +268,8 @@ int main(){
     int numFolios = solicDatoInt();
     for(int i = 0; i < numFolios; i++){
       limpiarPantalla();
+      printf("========== Ingresar elementos ==========");
+      printf("\nElemento #%d", i + 1);
       insertarNuevoNodo(arbol);
     }
   }
