@@ -13,7 +13,7 @@
 //Estructuras
   typedef struct Nodo{
     int dato;
-    char datoChar[tamFolio];
+    char datoChar[tamFolio + 1];
     struct Nodo *hijos[gradoArbol];
   } Nodo;
 
@@ -157,6 +157,7 @@ int main(){
     int n;
     printf("Ingresa el dato: ");
     scanf("%d",&n);
+    return n;
   }
   //Funciones del Arbol
   void insertar(Nodo *nodo, int dato){
