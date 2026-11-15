@@ -13,7 +13,7 @@
 //Estructuras
   typedef struct Nodo{
     int dato;
-    char dato[tamFolio];
+    char datoChar[tamFolio];
     struct Nodo *hijos[gradoArbol];
   }
 
@@ -23,11 +23,75 @@
   void limparPantalla();
   void pausarPantalla();
   
-  //Funciones del Arbol # Trabajando Cesar Principal
-  
+  //Funciones del Arbol
+  void insertar(Nodo *nodo, int dato){
+    if(dato < nodo->dato){
+      if(nodo->hijos[0] == NULL){
+        nodo->hijos[0] = nuevoNodo(dato);
+      }else{
+        insertar(nodo->hijos[0], dato);
+      }
+    }else{
+      if(nodo->hijos[1] == NULL){
+        nodo->hijos[1] = nuevoNodo(dato);
+      }else{
+        insertar(nodo->hijos[1], dato);
+      }
+    }
+  }
+  void preOrder(Nodo *nodo){
+    if(nodo != NULL){
+      printf("[%d] ", nodo->dato);
+      preOrder(nodo->hijos[0]);
+      preOrder(nodo->hijos[1]);
+    }
+  }
+  void inOrder(Nodo *nodo){
+    if(nodo != NULL){
+      inOrder(nodo->hijos[0]);
+      printf("[%d] ", nodo->dato);
+      inOrder(nodo->hijos[1]);
+    }
+  }
+  void postOrder(Nodo *nodo){
+    if(nodo != NULL){
+      postOrder(nodo->hijos[0]);
+      postOrder(nodo->hijos[1]);
+      printf("[%d] ", nodo->dato);
+    }
+  }
   
   //Funciones del Nodo
-  
+  char intToChar(int dato){
+    switch(dato){
+      case 0: return '0'; break;
+      case 1: return '1'; break;
+      case 2: return '2'; break;
+      case 3: return '3'; break;
+      case 4: return '4'; break;
+      case 5: return '5'; break;
+      case 6: return '6'; break;
+      case 7: return '7'; break;
+      case 8: return '8'; break;
+      case 9: return '9'; break;
+      default: return 'X'; break;
+    }
+  }
+  Nodo *nuevoNodo(int dato){
+    Nodo *nodo = (Nodo *) calloc(1, sizeof(Nodo));
+    nodo->dato = dato;
+    int decim = 1;
+    for(int i = 0; i < tamFolio - 1; i++)
+      decim = decim * 10;
+    for(int i=0; i < tamFolio; i++){
+      nodo->datoChar[i] = intToChar(dato / decim);
+      dato = dato % decim;
+      decim = decim / 10;
+    }
+    for(int i = 0; i < gradoArbol; i++)
+      nodo->hijos[i] = NULL;
+    return nodo;
+  }
   
   //Funciones de la opcion 1
   
