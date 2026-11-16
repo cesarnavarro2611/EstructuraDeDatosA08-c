@@ -3,7 +3,7 @@
 #include<math.h>
 #include<string.h>   
 //Tiempo de programacion por colaborador
-//Richie
+//Richie 2 horas
 //Daniel 3 horas 
 //Cesar 6 horas
 
@@ -34,7 +34,8 @@
   Nodo *busqValNodo(Nodo *nodo, int dato);
   int arbolVacio(Nodo *arbol);
   void imprimirFolio(Nodo *nodo, int *primero);   
-  void liberarArbol(Nodo *nodo);  
+  void liberarArbol(Nodo *nodo);
+  int pesoArbol(Nodo *nodo);
   
   //Funciones del Nodo
   char intToChar(int dato);
@@ -66,8 +67,8 @@
   //Funciones de la opcion 8
   
   
-  //Funciones de la opcion 9
-  
+  //Funciones de la opcion 9 #Trabajando Richie
+  void mostrarPeso(Nodo *arbol);
   
   //Funciones de la opcion 10
   
@@ -75,7 +76,7 @@
   //Funciones de la opcion 11
   
   
-  //Funciones de la opcion 12
+  //Funciones de la opcion 12 #Trabajando Dani
   void recorridos(Nodo *arbol);   
   
   //Funciones de la opcion 13
@@ -114,7 +115,7 @@ int main(){
       
         break;
       case 9:
-      
+        mostrarPeso(arbol);
         break;
       case 10:
       
@@ -246,6 +247,12 @@ int main(){
       free(nodo);
     }
   }
+  //Regresa la cantidad de nodos del arbol
+  int pesoArbol(Nodo *nodo){
+    if(nodo == NULL)
+      return 0;
+    return 1 + pesoArbol(nodo->hijos[0]) + pesoArbol(nodo->hijos[1]);
+  }
   
   //Funciones del Nodo
   char intToChar(int dato){
@@ -327,7 +334,15 @@ int main(){
   //Funciones de la opcion 8
   
   //Funciones de la opcion 9
-  
+  void mostrarPeso(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Peso del Arbol ========== \n\n");
+    if(arbolVacio(arbol)){
+      printf("El árbol está vacío");
+      return;
+    }
+    printf("El peso del árbol es %d", pesoArbol(arbol));
+  }
   //Funciones de la opcion 10
   
   //Funciones de la opcion 11
