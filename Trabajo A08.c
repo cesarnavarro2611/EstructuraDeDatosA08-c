@@ -3,13 +3,13 @@
 #include<math.h>
 //Tiempo de programacion por colaborador
 //Richie
-//Daniel
+//Daniel 5 Hrs 
 //Cesar 6 horas
 
 //Definicion de Constantes
 #define tamFolio 3
 #define gradoArbol 2
-
+#define  folioMax 999
 //Estructuras
   typedef struct Nodo{
     int dato;
@@ -69,16 +69,20 @@
   
   
   //Funciones de la opcion 10
-  
+  void camino(Nodo *arbol);   
   
   //Funciones de la opcion 11
-  
+  void longitudCamino(Nodo *arbol);
   
   //Funciones de la opcion 12
-  
+  void imprimirFolio(Nodo *nodo, int *primero);   
+  void recorridoPre(Nodo *nodo, int *primero);   
+  void recorridoIn(Nodo *nodo, int *primero);   
+  void recorridoPost(Nodo *nodo, int *primero); 
+  void recorridos(Nodo *arbol);   
   
   //Funciones de la opcion 13
-  
+  void salir();   
   
 int main(){
   int opcMenuPrincSel = 0;
@@ -114,16 +118,19 @@ int main(){
       
         break;
       case 10:
-      
+        camino(arbol);   
+        pausarPantalla();
         break;
       case 11:
-      
+        longitudCamino(arbol);   
+        pausarPantalla();
         break;
       case 12:
-      
+        recorridos(arbol);   
+        pausarPantalla();
         break;
       case 13:
-        printf("Va a salir del programa \n Que tenga un buen dia :D\n");
+        salir();   
         break;
       default:
       
@@ -398,14 +405,116 @@ int main(){
   
   
   //Funciones de la opcion 10
-  
+  //muestra los folios desde la raiz hasta el folio buscado, separados por ->
+  void camino(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Camino ========== \n\n");
+    if(arbolVacio(arbol)){
+      printf("El árbol está vacío");
+      return;
+    }
+    int folio = solicDatoInt();
+    if(busqValNodo(arbol, folio) == NULL){
+      printf("Folio no encontrado");
+      return;
+    }
+    printf("Camino: ");
+    Nodo *nodoAct = arbol;
+    while(nodoAct != NULL){
+      printf("%s", nodoAct->datoChar);
+      if(nodoAct->dato == folio)
+        break;
+      printf(" -> ");
+      if(folio < nodoAct->dato)
+        nodoAct = nodoAct->hijos[0];
+      else
+        nodoAct = nodoAct->hijos[1];
+    }
+  }
   
   //Funciones de la opcion 11
-  
+  // cuenta los nodos desde la raiz hasta el folio buscado 
+  void longitudCamino(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Longitud del camino ========== \n\n");
+    if(arbolVacio(arbol)){
+      printf("El árbol está vacío");
+      return;
+    }
+    int folio = solicDatoInt();
+    if(busqValNodo(arbol, folio) == NULL){
+      printf("Folio no encontrado");
+      return;
+    }
+    int longitud = 0;
+    Nodo *nodoAct = arbol;
+    while(nodoAct != NULL){
+      longitud++;
+      if(nodoAct->dato == folio)
+        break;
+      if(folio < nodoAct->dato)
+        nodoAct = nodoAct->hijos[0];
+      else
+        nodoAct = nodoAct->hijos[1];
+    }
+    printf("Longitud de camino: %d", longitud);
+  }
   
   //Funciones de la opcion 12
-  
+  // imprime el folio con " - " antes de todos menos el primero
+  void imprimirFolio(Nodo *nodo, int *primero){
+    if(!*primero)
+      printf(" - ");
+    printf("%s", nodo->datoChar);
+    *primero = 0;
+  }
+  //recorridos (preOrder, inOrder y postOrder originales quedan intactos)
+  void recorridoPre(Nodo *nodo, int *primero){
+    if(nodo != NULL){
+      imprimirFolio(nodo, primero);
+      recorridoPre(nodo->hijos[0], primero);
+      recorridoPre(nodo->hijos[1], primero);
+    }
+  }
+  void recorridoIn(Nodo *nodo, int *primero){
+    if(nodo != NULL){
+      recorridoIn(nodo->hijos[0], primero);
+      imprimirFolio(nodo, primero);
+      recorridoIn(nodo->hijos[1], primero);
+    }
+  }
+  void recorridoPost(Nodo *nodo, int *primero){
+    if(nodo != NULL){
+      recorridoPost(nodo->hijos[0], primero);
+      recorridoPost(nodo->hijos[1], primero);
+      imprimirFolio(nodo, primero);
+    }
+  }
+  // muestra los tres recorridos 
+  void recorridos(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Recorridos ========== \n\n");
+    if(arbolVacio(arbol)){
+      printf("El árbol está vacío");
+      return;
+    }
+    int primero;
+    primero = 1;
+    printf("PreOrder: ");
+    recorridoPre(arbol, &primero);
+    printf("\n");
+    primero = 1;
+    printf("InOrder: ");
+    recorridoIn(arbol, &primero);
+    printf("\n");
+    primero = 1;
+    printf("PostOrder: ");
+    recorridoPost(arbol, &primero);
+    printf("\n");
+  }
   
   //Funciones de la opcion 13
-  
-  
+  //muestra el mensaje de despedida
+  void salir(){
+    printf("Va a salir del programa \n Que tenga un buen dia :D\n");
+  }
