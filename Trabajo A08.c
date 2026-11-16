@@ -27,11 +27,11 @@
   int leerEntero(const char *mensaje, int *valor);
   
   //Funciones del Arbol
-  Nodo *insertar(Nodo *nodo, int dato);
+  void *insertar(Nodo *nodo, int dato);
   void preOrder(Nodo *nodo, int *primero);   
   void inOrder(Nodo *nodo, int *primero);   
   void postOrder(Nodo *nodo, int *primero);   
-  Nodo *busqValNodo(Nodo *nodo, int dato);
+  void *busqValNodo(Nodo *nodo, int dato);
   int arbolVacio(Nodo *arbol);
   void imprimirFolio(Nodo *nodo, int *primero);   
   void liberarArbol(Nodo *nodo);
@@ -42,9 +42,9 @@
   Nodo *nuevoNodo(int dato);
   
   //Funciones de la opcion 1
-  Nodo *insertarNuevoNodo(Nodo *arbol);
+  void *insertarNuevoNodo(Nodo *arbol);
   int verifDatoOpcUno(Nodo *arbol, int dato);
-  Nodo *insertMultNodos(Nodo *arbol);
+  void *insertMultNodos(Nodo *arbol);
   
   //Funciones de la opcion 2
   
@@ -239,7 +239,6 @@ int main(){
     printf("%s", nodo->datoChar);
     *primero = 0;
   }
-  //NUEVO (etapa 3)
   void liberarArbol(Nodo *nodo){
     if(nodo != NULL){
       liberarArbol(nodo->hijos[0]);
