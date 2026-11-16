@@ -60,7 +60,8 @@
   void busqPadre(Nodo *arbol);
   
   //Funciones de la opcion 6
-  
+  void mostHojasInOrder(Nodo *arbol);
+  void opcSeisHojasComp(Nodo *arbol);
   
   //Funciones de la opcion 7
   
@@ -474,7 +475,27 @@ int main(){
   }
   
   //Funciones de la opcion 6
-  
+  void mostHojasInOrder(Nodo *arbol){
+    if(nodo != NULL){
+      mostHojasInOrder(arbol->hijos[0]);
+      if(arbol->hijos[0] == NULL && arbol->hijos[0] == NULL)
+        printf("%d, ", arbol->dato);
+      mostHojasInOrder(arbol->hijos[1]);
+    }
+  }
+  void opcSeisHojasComp(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Hojas del arbol ==========\n");
+    if(arbolVacio(arbol)){
+      printf("El arbol esta vacio");
+      pausarPantalla();
+      return;
+    }else{
+      printf("Hojas: ");
+      mostHojasInOrder(arbol;)
+    }
+    pausarPantalla();
+  }
   
   //Funciones de la opcion 7
   
