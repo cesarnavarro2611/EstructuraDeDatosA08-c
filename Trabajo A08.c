@@ -57,7 +57,7 @@
   void busqDesc(Nodo *arbol);
   
   //Funciones de la opcion 5
-  
+  void busqPadre(Nodo *arbol);
   
   //Funciones de la opcion 6
   
@@ -409,11 +409,11 @@ int main(){
   void busqDesc(Nodo *arbol){
     limpiarPantalla();
     printf(" ========== Ver descendientes de un Nodo ==========\n");
-    int datoSolic = solicDatoInt();
     if(arbol == NULL){
       printf("\nEl arbol esta vacío");
       return;
     }
+    int datoSolic = solicDatoInt();
     Nodo *nodoSel = busqValNodo(arbol, datoSolic), *nodoHijo;
     if(nodoSel == NULL)
       printf("\nFolio no Encontrado");
@@ -435,7 +435,43 @@ int main(){
   }
   
   //Funciones de la opcion 5
-  
+  void busqPadre(Nodo *arbol){
+    if(arbolVacio(arbol)){
+      printf("El arbol esta vacío");
+      return;
+    }
+    int datoSolic = solicDatoInt();
+    if(arbol->dato == datoSolic){
+      printf("\nEl valor se encuentra en la raíz por lo que no tiene nodo padre");
+      pausarPantalla();
+      return;
+    }
+    Nodo *nodoAct = arbol, *nodoHVerif = arbol;
+    while(nodoAct != NULL && nodoHVerif->dato != datoSolic){
+      for(int i = 0; i < gradoArbol; i++){
+        if(nodoAct->hijos[i] != NULL){
+          nodoHVerif = nodoAct->hijos[i];
+          if(nodoHVerif->dato == datoSolic) break;
+        }
+      }
+      if(nodoHVerif->dato == datoSolic){
+        break;
+      }
+      if(datoSolic < nodoAct->dato)
+          nodoAct = nodoAct->hijos[0];
+        else
+          nodoAct = nodoAct->hijos[1];
+    }
+    if(nodoAct == NULL){
+      printf("\nFolio no encontrado");
+    }else{
+      printf("El ancestro del nodo es: ");
+      for(int i = 0; i < tamFolio; i++){
+        printf("%c", nodoAct->datoChar[i]);
+      }
+    }
+    pausarPantalla();
+  }
   
   //Funciones de la opcion 6
   
