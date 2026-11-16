@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 //Tiempo de programacion por colaborador
-//Richie
+//Richie 2 horas 
 //Daniel 5Hrs
 //Cesar 6 horas
 
@@ -31,7 +31,9 @@
   void postOrder(Nodo *nodo);
   Nodo *busqValNodo(Nodo *nodo, int dato);
   int arbolVacio(Nodo *arbol);
-  
+  int pesoArbol(Nodo *nodo);
+
+
   //Funciones del Nodo
   char intToChar(int dato);
   Nodo *nuevoNodo(int dato);
@@ -66,7 +68,7 @@
   
   
   //Funciones de la opcion 9
-  
+  void mostrarPeso(Nodo *arbol);
   
   //Funciones de la opcion 10
   void camino(Nodo *arbol);  
@@ -115,7 +117,8 @@ int main(){
       
         break;
       case 9:
-      
+        mostrarPeso(arbol);
+		pausarPantalla();
         break;
       case 10:
         camino(arbol);  
@@ -223,7 +226,13 @@ int main(){
   int arbolVacio(Nodo *arbol){
     return (arbol == NULL);
   }
-  
+  //Regresa la cantidad de nodos del arbol
+  int pesoArbol(Nodo *nodo){
+    if(nodo == NULL)
+      return 0;
+    return 1 + pesoArbol(nodo->hijos[0]) + pesoArbol(nodo->hijos[1]);
+  }
+
   //Funciones del Nodo
   char intToChar(int dato){
     switch(dato){
@@ -428,7 +437,15 @@ int main(){
   
   
   //Funciones de la opcion 9
-  
+  void mostrarPeso(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Peso del Arbol ========== \n\n");
+    if(arbolVacio(arbol)){
+      printf("El árbol está vacío");
+      return;
+    }
+    printf("El peso del árbol es %d", pesoArbol(arbol));
+  }
   
   //Funciones de la opcion 10
   // muestra los folios desde la raiz hasta el folio buscado, separados por ->
