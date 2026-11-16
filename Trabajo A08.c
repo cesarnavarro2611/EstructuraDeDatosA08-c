@@ -459,7 +459,7 @@ int main(){
   
   //Funciones de la opcion 6
   void mostHojasInOrder(Nodo *arbol){
-    if(nodo != NULL){
+    if(arbol != NULL){
       mostHojasInOrder(arbol->hijos[0]);
       if(arbol->hijos[0] == NULL && arbol->hijos[0] == NULL)
         printf("%d, ", arbol->dato);
@@ -475,15 +475,15 @@ int main(){
       return;
     }else{
       printf("Hojas: ");
-      mostHojasInOrder(arbol;)
+      mostHojasInOrder(arbol);
     }
     pausarPantalla();
   }
   
   //Funciones de la opcion 7
   int nivelNodo(Nodo *arbol, int dato){
-    if(nodo == NULL) return NULL;
-    Nodo *nodoAct = nodo;
+    if(arbol == NULL) return NULL;
+    Nodo *nodoAct = arbol;
     int cont = 0;
     while(nodoAct != NULL){
       if(nodoAct->dato == dato)
@@ -502,7 +502,7 @@ int main(){
     printf(" ========== Calcular el nivel de un nodo ==========\n");
     if(arbol == NULL){
       printf("\nEl arbol esta vacio");
-      break;
+      return;
     }
     int folioBusq = solicDatoInt();
     int nvl = nivelNodo(arbol, folioBusq);
