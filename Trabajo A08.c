@@ -2,8 +2,8 @@
 #include<stdlib.h>
 #include<math.h>
 //Tiempo de programacion por colaborador
-//Richie 2 horas 
-//Daniel 5Hrs
+//Richie 4 horas 
+//Daniel 5 Hrs
 //Cesar 6 horas
 
 //Definicion de Constantes
@@ -31,8 +31,9 @@
   void postOrder(Nodo *nodo);
   Nodo *busqValNodo(Nodo *nodo, int dato);
   int arbolVacio(Nodo *arbol);
+  int alturaArbol(Nodo *nodo);
   int pesoArbol(Nodo *nodo);
-
+  
 
   //Funciones del Nodo
   char intToChar(int dato);
@@ -65,7 +66,7 @@
   
   
   //Funciones de la opcion 8
-  
+  void mostrarAltura(Nodo *arbol);
   
   //Funciones de la opcion 9
   void mostrarPeso(Nodo *arbol);
@@ -114,7 +115,8 @@ int main(){
       
         break;
       case 8:
-      
+        mostrarAltura(arbol);
+		pausarPantalla();
         break;
       case 9:
         mostrarPeso(arbol);
@@ -225,6 +227,14 @@ int main(){
   }
   int arbolVacio(Nodo *arbol){
     return (arbol == NULL);
+  }
+  //Regresa la altura del arbol (cantidad de nodos del camino mas largo)
+  int alturaArbol(Nodo *nodo){
+    if(nodo == NULL)
+      return 0;
+    int altIzq = alturaArbol(nodo->hijos[0]);
+    int altDer = alturaArbol(nodo->hijos[1]);
+    return 1 + (altIzq > altDer ? altIzq : altDer);
   }
   //Regresa la cantidad de nodos del arbol
   int pesoArbol(Nodo *nodo){
@@ -434,7 +444,15 @@ int main(){
   
   
   //Funciones de la opcion 8
-  
+  void mostrarAltura(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Altura del Arbol ========== \n\n");
+    if(arbolVacio(arbol)){
+      printf("El árbol está vacío");
+      return;
+    }
+    printf("La altura del árbol es %d", alturaArbol(arbol));
+  }
   
   //Funciones de la opcion 9
   void mostrarPeso(Nodo *arbol){
