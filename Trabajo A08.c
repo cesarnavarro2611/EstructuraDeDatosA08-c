@@ -44,14 +44,14 @@
   //Funciones de la opcion 2
   void busqNodo(Nodo *arbol);
   
-  //Funciones de la opcion 3 #Trabajando Nano
+  //Funciones de la opcion 3
   void elimHoja(Nodo *nodoP, int dato);
   void elimSimple(Nodo *nodoP, int dato);
   void elimDoble(Nodo *nodoP, int dato);
   void supresion(Nodo **arbol, int dato);
   
-  //Funciones de la opcion 4
-  
+  //Funciones de la opcion 4 #Trabajando Nano
+  void busqDesc(Nodo *arbol);
   
   //Funciones de la opcion 5
   
@@ -387,7 +387,33 @@ int main(){
   }
   
   //Funciones de la opcion 4
-  
+  void busqDesc(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Ver descendientes de un Nodo ==========\n");
+    int datoSolic = solicDatoInt();
+    if(arbol == NULL){
+      printf("\nEl arbol esta vacío");
+      return;
+    }
+    Nodo *nodoSel = busqValNodo(arbol, datoSolic), *nodoHijo;
+    if(nodoSel == NULL)
+      printf("\nFolio no Encontrado");
+    else{
+      nodoHijo = nodoSel->hijos[0];
+      if(nodoHijo != NULL){
+        printf("\nEl hijo izquierdo: ");
+        for(int i = 0; i < tamFolio; i++)
+          printf("%c", nodoHijo->datoChar[i]);
+      }else printf("\nNo hay hijo izquierdo");
+      nodoHijo = nodoSel->hijos[1];
+      if(nodoHijo != NULL){
+        printf("\nEl hijo derecho: ");
+        for(int i = 0; i < tamFolio; i++)
+          printf("%c", nodoHijo->datoChar[i]);
+      }else printf("\nNo hay hijo derecho");
+    }
+    pausarPantalla();
+  }
   
   //Funciones de la opcion 5
   
