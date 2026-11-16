@@ -153,7 +153,8 @@ int main(){
 //Definicion de las funciones
   //Funciones principales del programa
   int menuPrinc(){
-    int opcSel;
+   limpiarPantalla();
+	int opcSel;
     printf("==================== Menu Principal ====================");
     printf("\n1. Inserción\n2. Busqueda\n3. Supresión");
     printf("\n4. Descendientes (Nodos hijos)\n5.Ancestro (Nodo padre)");
@@ -420,7 +421,8 @@ int main(){
   
   //Funciones de la opcion 5
   void busqPadre(Nodo *arbol){
-    if(arbolVacio(arbol)){
+   limpiarPantalla();
+	  if(arbolVacio(arbol)){
       printf("El arbol esta vacío");
       return;
     }
