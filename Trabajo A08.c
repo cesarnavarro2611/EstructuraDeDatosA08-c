@@ -1,16 +1,15 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#include<string.h>   
 //Tiempo de programacion por colaborador
 //Richie
-//Daniel 3 horas 
+//Daniel
 //Cesar 6 horas
 
 //Definicion de Constantes
 #define tamFolio 3
 #define gradoArbol 2
-#define folioMax 999   
+
 //Estructuras
   typedef struct Nodo{
     int dato;
@@ -24,32 +23,32 @@
   void limpiarPantalla();
   void pausarPantalla();
   int solicDatoInt();
-  int leerEntero(const char *mensaje, int *valor);
   
   //Funciones del Arbol
-  Nodo *insertar(Nodo *nodo, int dato);
-  void preOrder(Nodo *nodo, int *primero);   
-  void inOrder(Nodo *nodo, int *primero);   
-  void postOrder(Nodo *nodo, int *primero);   
+  void insertar(Nodo **nodo, int dato);
+  void preOrder(Nodo *nodo);
+  void inOrder(Nodo *nodo);
+  void postOrder(Nodo *nodo);
   Nodo *busqValNodo(Nodo *nodo, int dato);
   int arbolVacio(Nodo *arbol);
-  void imprimirFolio(Nodo *nodo, int *primero);   
-  void liberarArbol(Nodo *nodo);  
   
   //Funciones del Nodo
   char intToChar(int dato);
   Nodo *nuevoNodo(int dato);
   
   //Funciones de la opcion 1
-  Nodo *insertarNuevoNodo(Nodo *arbol);
+  void insertarNuevoNodo(Nodo **arbol);
   int verifDatoOpcUno(Nodo *arbol, int dato);
-  Nodo *insertMultNodos(Nodo *arbol);
+  void insertMultNodos(Nodo **arbol);
   
   //Funciones de la opcion 2
-  
+  void busqNodo(Nodo *arbol);
   
   //Funciones de la opcion 3 #Trabajando Nano
-  
+  void elimHoja(Nodo *nodoP, int dato);
+  void elimSimple(Nodo *nodoP, int dato);
+  void elimDoble(Nodo *nodoP, int dato);
+  void supresion(Nodo **arbol, int dato);
   
   //Funciones de la opcion 4
   
@@ -76,21 +75,19 @@
   
   
   //Funciones de la opcion 12
-  void recorridos(Nodo *arbol);   
+  
   
   //Funciones de la opcion 13
   
   
-
 int main(){
   int opcMenuPrincSel = 0;
   Nodo *arbol = NULL;
   do{
-    limpiarPantalla();  
     opcMenuPrincSel = menuPrinc();
     switch (opcMenuPrincSel){
       case 1:
-        arbol = insertMultNodos(arbol);
+      
         break;
       case 2:
       
@@ -123,19 +120,16 @@ int main(){
       
         break;
       case 12:
-        recorridos(arbol);  
+      
         break;
       case 13:
-        printf("Va a salir del programa \n Que tenga un buen dia :D");
+        printf("Va a salir del programa \n Que tenga un buen dia :D\n");
         break;
       default:
-        printf("Opcion no valida");
+      
         break;
     }
-    if(opcMenuPrincSel != 13)   
-      pausarPantalla();
   }while(opcMenuPrincSel != 13);
-  liberarArbol(arbol);   
   return 0;
 }
 
@@ -148,8 +142,9 @@ int main(){
     printf("\n4. Descendientes (Nodos hijos)\n5.Ancestro (Nodo padre)");
     printf("\n6. Hojas\n7. Nivel\n8. Altura\n9. Peso\n10. Camino");
     printf("\n11. Longitud del camino\n12. Recorridos\n13. Salir");
-    if(!leerEntero("\n\nIngrese la opcion que va a seleccionar: ", &opcSel))
-      opcSel = 0;
+    printf("\n\nIngrese la opcion que va a seleccionar: ");
+    scanf("%d",&opcSel);
+    getchar();
     return opcSel;
   }
   void limpiarPantalla() {
@@ -166,85 +161,60 @@ int main(){
   }
   int solicDatoInt(){
     int n;
-    while(!leerEntero("Ingresa el dato: ", &n))
-      printf("Debes ingresar un numero entero.\n");
+    printf("Ingresa el dato: ");
+    scanf("%d",&n);
+    getchar();
     return n;
   }
-  //Lee una linea completa y la convierte a entero. Regresa 1 si fue valido, 0 si no
-  int leerEntero(const char *mensaje, int *valor){
-    char buf[64], *fin;
-    printf("%s", mensaje);
-    if(fgets(buf, sizeof(buf), stdin) == NULL)
-      return 0;
-    long n = strtol(buf, &fin, 10);
-    if(fin == buf)
-      return 0;
-    while(*fin == ' ' || *fin == '\t')
-      fin++;
-    if(*fin != '\n' && *fin != '\0')
-      return 0;
-    *valor = (int) n;
-    return 1;
-  }
-  
   //Funciones del Arbol
-  Nodo *insertar(Nodo *nodo, int dato){
-    if(nodo == NULL)
-      return nuevoNodo(dato);
-    if(dato < nodo->dato)
-      nodo->hijos[0] = insertar(nodo->hijos[0], dato);
-    else
-      nodo->hijos[1] = insertar(nodo->hijos[1], dato);
-    return nodo;
-  }
-  void preOrder(Nodo *nodo, int *primero){
-    if(nodo != NULL){
-      imprimirFolio(nodo, primero);
-      preOrder(nodo->hijos[0], primero);
-      preOrder(nodo->hijos[1], primero);
+  void insertar(Nodo **nodo, int dato){
+    if(*nodo == NULL){
+      *nodo = nuevoNodo(dato);
+      return;
+    }
+    if(dato < (*nodo)->dato){
+      insertar(&((*nodo)->hijos[0]), dato);
+    }else{
+      insertar(&((*nodo)->hijos[1]), dato);
     }
   }
-  void inOrder(Nodo *nodo, int *primero){
+  void preOrder(Nodo *nodo){
     if(nodo != NULL){
-      inOrder(nodo->hijos[0], primero);
-      imprimirFolio(nodo, primero);
-      inOrder(nodo->hijos[1], primero);
+      printf("[%d] ", nodo->dato);
+      preOrder(nodo->hijos[0]);
+      preOrder(nodo->hijos[1]);
     }
   }
-  void postOrder(Nodo *nodo, int *primero){
+  void inOrder(Nodo *nodo){
     if(nodo != NULL){
-      postOrder(nodo->hijos[0], primero);
-      postOrder(nodo->hijos[1], primero);
-      imprimirFolio(nodo, primero);
+      inOrder(nodo->hijos[0]);
+      printf("[%d] ", nodo->dato);
+      inOrder(nodo->hijos[1]);
+    }
+  }
+  void postOrder(Nodo *nodo){
+    if(nodo != NULL){
+      postOrder(nodo->hijos[0]);
+      postOrder(nodo->hijos[1]);
+      printf("[%d] ", nodo->dato);
     }
   }
   Nodo *busqValNodo(Nodo *nodo, int dato){
+    if(nodo == NULL) return NULL;
     Nodo *nodoAct = nodo;
-    while(nodoAct != NULL && nodoAct->dato != dato){
-      if(dato < nodoAct->dato)
+    while(nodoAct != NULL){
+      if(nodoAct->dato == dato)
+        return nodoAct;
+      else if(nodoAct->dato > dato){
         nodoAct = nodoAct->hijos[0];
-      else
+      }else{
         nodoAct = nodoAct->hijos[1];
+      }
     }
-    return nodoAct;
+    return NULL;
   }
   int arbolVacio(Nodo *arbol){
     return (arbol == NULL);
-  }
-  //Imprime el folio separado por " - " (el primero va sin separador)
-  void imprimirFolio(Nodo *nodo, int *primero){
-    if(!*primero)
-      printf(" - ");
-    printf("%s", nodo->datoChar);
-    *primero = 0;
-  }
-  //NUEVO (etapa 3)
-  void liberarArbol(Nodo *nodo){
-    if(nodo != NULL){
-      liberarArbol(nodo->hijos[0]);
-      liberarArbol(nodo->hijos[1]);
-      free(nodo);
-    }
   }
   
   //Funciones del Nodo
@@ -280,70 +250,162 @@ int main(){
   }
   
   //Funciones de la opcion 1
-  Nodo *insertarNuevoNodo(Nodo *arbol){
+  void insertarNuevoNodo(Nodo **arbol){
     int dato;
     do{
       dato = solicDatoInt();
-      if(dato < 0 || dato > folioMax)
-        printf("\nEl folio no es valido (debe estar entre 000 y 999)\n");
-      else if(busqValNodo(arbol, dato) != NULL)
-        printf("\nEl folio de la cita ya existe, ingrese un folio diferente\n");
-    }while( verifDatoOpcUno(arbol, dato) );
-    return insertar(arbol, dato);
+      if(busqValNodo(*arbol, dato) != NULL)
+        printf("\nEl Folio ya se encuentra registrado");
+      if(dato > (pow(10, tamFolio) - 1) || dato < 0)
+        printf("\nEl folio no es valido");
+    }while( verifDatoOpcUno(*arbol, dato) );
+    insertar(arbol, dato);
   }
-  //regresa 1 si el dato NO es valido (fuera de rango o repetido) para repetir 
   int verifDatoOpcUno(Nodo *arbol, int dato){
-    return (dato < 0 || dato > folioMax || busqValNodo(arbol, dato) != NULL);
+    return (dato > (pow(10, tamFolio) - 1) || dato < 0 || busqValNodo(arbol, dato) != NULL);
   }
-  Nodo *insertMultNodos(Nodo *arbol){
+  void insertMultNodos(Nodo **arbol){
     limpiarPantalla();
     printf(" ========== Ingreso de Multiples Datos ==========\n\n");
-    int numFolios;
-    do{
-      numFolios = solicDatoInt();
-    }while(numFolios < 1);
+    int numFolios = solicDatoInt();
     for(int i = 0; i < numFolios; i++){
       limpiarPantalla();
       printf("========== Ingresar elementos ==========");
-      printf("\nElemento #%d\n", i + 1);
-      arbol = insertarNuevoNodo(arbol);
+      printf("\nElemento #%d", i + 1);
+      if(*arbol == NULL){
+        printf("\n\nEl arbol ha sido creado!");
+      }
+      insertarNuevoNodo(arbol);
+      pausarPantalla();
     }
-    printf("\nEl árbol fue creado");
-    return arbol;
   }
   
   //Funciones de la opcion 2
+  void busqNodo(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Buscar un Folio ========== \n\n");
+    printf("1. Ingrese el Folio que desea buscar \n");
+    int numFolio = solicDatoInt();
+    printf("\n2. Resultado \n");
+    if(arbol == NULL)
+      printf("El arbol está vacío");
+    else{
+      if(busqValNodo(arbol, numFolio) == NULL)
+        printf("Folio No Encontrado");
+      else
+        printf("Folio Encontrado");
+    }
+  }
   
   //Funciones de la opcion 3
+  void elimHoja(Nodo *nodoP, int dato){
+    Nodo *nodoTmp;
+    for(int i = 0; i < gradoArbol; i++){
+      nodoTmp = nodoP->hijos[i];
+      if(nodoTmp != NULL){
+        if(nodoTmp->dato == dato){
+          nodoP->hijos[i] = NULL;
+          free(nodoTmp);
+          break;
+        }
+      }
+    }
+  }
+  void elimSimple(Nodo *nodoP, int dato){
+    Nodo *nodoAct = NULL, *nodoHijo = NULL;
+    for(int i = 0; i < gradoArbol; i++){
+      nodoAct = nodoP->hijos[i];
+      nodoHijo = NULL;
+      if(nodoAct != NULL){
+        if(nodoAct->dato == dato){
+          for(int j = 0; j < gradoArbol; j++){
+            nodoHijo = nodoAct->hijos[j];
+            if(nodoHijo != NULL)
+              break;
+          }
+          nodoP->hijos[i] = nodoHijo;
+          free(nodoAct);
+          break;
+        }
+      }
+    }
+  }
+  void elimDoble(Nodo *nodoP, int dato){
+    for(int i = 0; i < gradoArbol; i++){
+      Nodo *nodoAct = nodoP->hijos[i];
+      if(nodoAct != NULL && nodoAct->dato == dato){
+        Nodo *suc = nodoAct->hijos[1];
+        Nodo *sucP = nodoAct;
+        while(suc->hijos[0] != NULL){
+          sucP = suc;
+          suc = suc->hijos[0];
+        }
+        if(sucP != nodoAct){
+          sucP->hijos[0] = suc->hijos[1];
+          suc->hijos[1] = nodoAct->hijos[1];
+        }
+        suc->hijos[0] = nodoAct->hijos[0];
+        nodoP->hijos[i] = suc;
+        free(nodoAct);
+        break;
+      }
+    }
+  }
+  void supresion(Nodo **arbol, int dato){
+    if(*arbol == NULL){
+      printf("El arbol esta vacio\n");
+      return;
+    }
+    if(busqValNodo(*arbol, dato) == NULL){
+      printf("Folio no encontrado\n");
+      return;
+    }
+    Nodo ficticio;
+    ficticio.hijos[0] = *arbol;
+    ficticio.hijos[1] = NULL;
+    Nodo *padre = &ficticio;
+    Nodo *act = *arbol;
+    while(act->dato != dato){
+      padre = act;
+      act = (dato < act->dato) ? act->hijos[0] : act->hijos[1];
+    }
+    int numHijos = (act->hijos[0] != NULL) + (act->hijos[1] != NULL);
+    if(numHijos == 0)      elimHoja(padre, dato);
+    else if(numHijos == 1) elimSimple(padre, dato);
+    else                   elimDoble(padre, dato);
+    
+    *arbol = ficticio.hijos[0];
+    
+    printf("Folio eliminado\n");
+  }
   
   //Funciones de la opcion 4
   
+  
   //Funciones de la opcion 5
+  
   
   //Funciones de la opcion 6
   
+  
   //Funciones de la opcion 7
+  
   
   //Funciones de la opcion 8
   
+  
   //Funciones de la opcion 9
+  
   
   //Funciones de la opcion 10
   
+  
   //Funciones de la opcion 11
   
+  
   //Funciones de la opcion 12
-  void recorridos(Nodo *arbol){
-    limpiarPantalla();
-    printf(" ========== Recorridos ========== \n\n");
-    if(arbolVacio(arbol)){
-      printf("El árbol está vacío");
-      return;
-    }
-    int primero;
-    primero = 1; printf("PreOrder: ");  preOrder(arbol, &primero);  printf("\n");
-    primero = 1; printf("InOrder: ");   inOrder(arbol, &primero);   printf("\n");
-    primero = 1; printf("PostOrder: "); postOrder(arbol, &primero); printf("\n");
-  }
+  
   
   //Funciones de la opcion 13
+  
+  
