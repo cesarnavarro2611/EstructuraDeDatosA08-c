@@ -64,7 +64,8 @@
   void opcSeisHojasComp(Nodo *arbol);
   
   //Funciones de la opcion 7
-  
+  int nivelNodo(Nodo *arbol, int dato);
+  void calcNivelNodo(Nodo *arbol);
   
   //Funciones de la opcion 8
   void mostrarAltura(Nodo *arbol);
@@ -498,7 +499,37 @@ int main(){
   }
   
   //Funciones de la opcion 7
-  
+  int nivelNodo(Nodo *arbol, int dato){
+    if(nodo == NULL) return NULL;
+    Nodo *nodoAct = nodo;
+    int cont = 0;
+    while(nodoAct != NULL){
+      if(nodoAct->dato == dato)
+        return cont;
+      else if(nodoAct->dato > dato){
+        nodoAct = nodoAct->hijos[0];
+      }else{
+        nodoAct = nodoAct->hijos[1];
+      }
+      cont++;
+    }
+    return -1;
+  }
+  void calcNivelNodo(Nodo *arbol){
+    limpiarPantalla();
+    printf(" ========== Calcular el nivel de un nodo ==========\n");
+    if(arbol == NULL){
+      printf("\nEl arbol esta vacio");
+      break;
+    }
+    int folioBusq = solicDatoInt();
+    int nvl = nivelNodo(arbol, folioBusq);
+    if(nvl >= 0)
+      printf("\n\nEl nivel del nodo es: %d", nvl);
+    else
+      printf("Folio no encontrado: ");
+    pausarPantalla();
+  }
   
   //Funciones de la opcion 8
   void mostrarAltura(Nodo *arbol){
