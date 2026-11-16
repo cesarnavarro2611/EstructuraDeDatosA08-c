@@ -26,9 +26,6 @@
   
   //Funciones del Arbol
   void insertar(Nodo **nodo, int dato);
-  void preOrder(Nodo *nodo);
-  void inOrder(Nodo *nodo);
-  void postOrder(Nodo *nodo);
   Nodo *busqValNodo(Nodo *nodo, int dato);
   int arbolVacio(Nodo *arbol);
   int alturaArbol(Nodo *nodo);
@@ -96,25 +93,31 @@ int main(){
     opcMenuPrincSel = menuPrinc();
     switch (opcMenuPrincSel){
       case 1:
-      
+        insertMultNodos(&arbol);
         break;
       case 2:
-      
+        busqNodo(arbol);
+        pausarPantalla();
         break;
       case 3:
-      
+        limpiarPantalla();
+        if(arbolVacio(arbol))
+          printf("El arbol esta vacio");
+        else
+          supresion(&arbol, solicDatoInt());
+        pausarPantalla();
         break;
       case 4:
-      
+        busqDesc(arbol);
         break;
       case 5:
-      
+        busqPadre(arbol);
         break;
       case 6:
-      
+        opcSeisHojasComp(arbol);
         break;
       case 7:
-      
+        calcNivelNodo(arbol);
         break;
       case 8:
         mostrarAltura(arbol);
@@ -190,27 +193,6 @@ int main(){
       insertar(&((*nodo)->hijos[0]), dato);
     }else{
       insertar(&((*nodo)->hijos[1]), dato);
-    }
-  }
-  void preOrder(Nodo *nodo){
-    if(nodo != NULL){
-      printf("[%d] ", nodo->dato);
-      preOrder(nodo->hijos[0]);
-      preOrder(nodo->hijos[1]);
-    }
-  }
-  void inOrder(Nodo *nodo){
-    if(nodo != NULL){
-      inOrder(nodo->hijos[0]);
-      printf("[%d] ", nodo->dato);
-      inOrder(nodo->hijos[1]);
-    }
-  }
-  void postOrder(Nodo *nodo){
-    if(nodo != NULL){
-      postOrder(nodo->hijos[0]);
-      postOrder(nodo->hijos[1]);
-      printf("[%d] ", nodo->dato);
     }
   }
   Nodo *busqValNodo(Nodo *nodo, int dato){
@@ -610,14 +592,14 @@ int main(){
   }
   
   //Funciones de la opcion 12
-  //NUEVO: imprime el folio  con " - " antes de todos menos el primero
+  // imprime el folio  con " - " antes de todos 
   void imprimirFolio(Nodo *nodo, int *primero){
     if(!*primero)
       printf(" - ");
     printf("%s", nodo->datoChar);
     *primero = 0;
   }
-  // recorridos(preOrder, inOrder y postOrder originales quedan intactos)
+  // recorridos en PreOrder, InOrder y PostOrder (folios de 3 digitos separados por " - ")
   void recorridoPre(Nodo *nodo, int *primero){
     if(nodo != NULL){
       imprimirFolio(nodo, primero);
