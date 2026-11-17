@@ -179,7 +179,7 @@ int main(){
   }
   int solicDatoInt(){
     int n;
-    printf("Ingresa el dato: ");
+    printf("\nIngresa el dato: ");
     scanf("%d",&n);
     getchar();
     return n;
@@ -484,7 +484,7 @@ int main(){
   
   //Funciones de la opcion 7
   int nivelNodo(Nodo *arbol, int dato){
-    if(arbol == NULL) return NULL;
+    if(arbol == NULL) return -1;
     Nodo *nodoAct = arbol;
     int cont = 0;
     while(nodoAct != NULL){
