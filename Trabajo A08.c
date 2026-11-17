@@ -157,7 +157,7 @@ int main(){
 	int opcSel;
     printf("==================== Menu Principal ====================");
     printf("\n1. Inserción\n2. Busqueda\n3. Supresión");
-    printf("\n4. Descendientes (Nodos hijos)\n5.Ancestro (Nodo padre)");
+    printf("\n4. Descendientes (Nodos hijos)\n5. Ancestro (Nodo padre)");
     printf("\n6. Hojas\n7. Nivel\n8. Altura\n9. Peso\n10. Camino");
     printf("\n11. Longitud del camino\n12. Recorridos\n13. Salir");
     printf("\n\nIngrese la opcion que va a seleccionar: ");
