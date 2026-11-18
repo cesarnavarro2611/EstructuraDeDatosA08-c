@@ -216,10 +216,10 @@ int main(){
   //Regresa la altura del arbol (cantidad de nodos del camino mas largo)
   int alturaArbol(Nodo *nodo){
     if(nodo == NULL)
-      return 0;
+      return -1;
     int altIzq = alturaArbol(nodo->hijos[0]);
     int altDer = alturaArbol(nodo->hijos[1]);
-    return 0 + (altIzq > altDer ? altIzq : altDer);
+    return 1 + (altIzq > altDer ? altIzq : altDer);
   }
   //Regresa la cantidad de nodos del arbol
   int pesoArbol(Nodo *nodo){
