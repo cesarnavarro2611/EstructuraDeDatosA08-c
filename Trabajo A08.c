@@ -197,7 +197,7 @@ int main(){
     if(opc > 77)
         opc = opc - 106;
     else
-        opc = opc - 64;
+        opc = opc - 96;
     return opc;
   }
   //Funciones del Arbol
