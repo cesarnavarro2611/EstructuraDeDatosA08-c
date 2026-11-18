@@ -479,8 +479,8 @@ int main(){
   void mostHojasInOrder(Nodo *arbol){
     if(arbol != NULL){
       mostHojasInOrder(arbol->hijos[0]);
-      if(arbol->hijos[0] == NULL && arbol->hijos[0] == NULL)
-        printf("%d, ", arbol->dato);
+      if(arbol->hijos[0] == NULL && arbol->hijos[1] == NULL)
+        printf("%s, ", arbol->datoChar);
       mostHojasInOrder(arbol->hijos[1]);
     }
   }
