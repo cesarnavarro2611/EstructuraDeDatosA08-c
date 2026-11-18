@@ -30,7 +30,7 @@
   int arbolVacio(Nodo *arbol);
   int alturaArbol(Nodo *nodo);
   int pesoArbol(Nodo *nodo);
-  
+  int obtMenuOpc();
 
   //Funciones del Nodo
   char intToChar(int dato);
@@ -160,8 +160,7 @@ int main(){
     printf("\n4. Descendientes (Nodos hijos)\n5. Ancestro (Nodo padre)");
     printf("\n6. Hojas\n7. Nivel\n8. Altura\n9. Peso\n10. Camino");
     printf("\n11. Longitud del camino\n12. Recorridos\n13. Salir");
-    printf("\n\nIngrese la opcion que va a seleccionar: ");
-    scanf("%d",&opcSel);
+    opcSel = opbMenuOpc();
     getchar();
     return opcSel;
   }
@@ -183,6 +182,16 @@ int main(){
     scanf("%d",&n);
     getchar();
     return n;
+  }
+	int obtMenuOpc(){
+    int opc;
+    do{
+      printf("\nIngrese la opción que desea realizar: ");
+      scanf("%d",&opc);
+      if(opc < 65 || (opc > 77 && opc < 97) || opc > 109)
+        printf("\n La opcion es INVALIDA, intente de nuevo");
+    }while(opc < 65 || (opc > 77 && opc < 97) || opc > 109);
+    return opc;
   }
   //Funciones del Arbol
   void insertar(Nodo **nodo, int dato){
