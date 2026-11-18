@@ -156,10 +156,10 @@ int main(){
    limpiarPantalla();
 	int opcSel;
     printf("==================== Menu Principal ====================");
-    printf("\n1. Inserción\n2. Busqueda\n3. Supresión");
-    printf("\n4. Descendientes (Nodos hijos)\n5. Ancestro (Nodo padre)");
-    printf("\n6. Hojas\n7. Nivel\n8. Altura\n9. Peso\n10. Camino");
-    printf("\n11. Longitud del camino\n12. Recorridos\n13. Salir");
+    printf("\nA. Inserción\nB. Busqueda\nC. Supresión");
+    printf("\nD. Descendientes (Nodos hijos)\nE. Ancestro (Nodo padre)");
+    printf("\nF. Hojas\nG. Nivel\nH. Altura\nI. Peso\nJ. Camino");
+    printf("\nK. Longitud del camino\nL. Recorridos\nM. Salir");
     opcSel = opbMenuOpc();
     getchar();
     return opcSel;
@@ -185,12 +185,19 @@ int main(){
   }
 	int obtMenuOpc(){
     int opc;
+    char opcChar;
     do{
       printf("\nIngrese la opción que desea realizar: ");
-      scanf("%d",&opc);
+      scanf("%c",&opcChar);
+      opc = (int)opcChar;
       if(opc < 65 || (opc > 77 && opc < 97) || opc > 109)
         printf("\n La opcion es INVALIDA, intente de nuevo");
     }while(opc < 65 || (opc > 77 && opc < 97) || opc > 109);
+    
+    if(opc > 77)
+        opc = opc - 106;
+    else
+        opc = opc - 64;
     return opc;
   }
   //Funciones del Arbol
