@@ -160,7 +160,7 @@ int main(){
     printf("\nD. Descendientes (Nodos hijos)\nE. Ancestro (Nodo padre)");
     printf("\nF. Hojas\nG. Nivel\nH. Altura\nI. Peso\nJ. Camino");
     printf("\nK. Longitud del camino\nL. Recorridos\nM. Salir");
-    opcSel = opbMenuOpc();
+    opcSel = obtMenuOpc();
     getchar();
     return opcSel;
   }
